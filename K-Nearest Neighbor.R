@@ -52,7 +52,7 @@ wbcd_test_pred <- knn(train = wbcd_train, test = wbcd_test, cl = wbcd_train_labe
 
 CrossTable(x = wbcd_test_labels, y = wbcd_test_pred)
 
-# Using the z-transformation
+# An alternative is using the z-transformation
 wbcd_z <-  as.data.frame(scale(wbcd[-1]))
 
 # And then the same steps..
@@ -65,3 +65,6 @@ wbcd_test_labels <- wbcd[470:569, 1]
 
 wbcd_test_pred <- knn(train = wbcd_train, test = wbcd_test, cl = wbcd_train_labels, k=21)
 CrossTable(x = wbcd_test_labels, y = wbcd_test_pred)
+
+# Different values of 'k' may be tried to get the desired level of false positives and negatives.
+# However, it is important to know that over-fitting has to be avoided
