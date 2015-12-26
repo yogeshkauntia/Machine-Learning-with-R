@@ -1,4 +1,5 @@
 library(stats) # kmeans() within the package can be used to implement the k-means algorithm
+library(fpc) # For plotting the clusters
 
 # Clustering is an unsupervised machine learning task that automatically divides the data into clusters, or
 # groupings of similar items. It does this without having been told what the groups should look like ahead
@@ -54,7 +55,14 @@ interests_z <- as.data.frame(lapply(interests, scale))
 teen_clusters <- kmeans(interests_z, 5)
 teen_clusters$size
 teen_clusters$centers
+
+# The plots look messy because one cluster dominates all other clusters. Moreover, the best two components
+# explain only 14% of the classification
+plotcluster(interests_z, teen_clusters$cluster)
+clusplot(interests_z, teen_clusters$cluster, color=TRUE, shade=TRUE, labels=2, lines=0)
+
 teens$cluster <- teen_clusters$cluster
+
 
 # Confirming clusters formed using interests using demographics
 aggregate(data = teens, age ~ cluster, mean)
